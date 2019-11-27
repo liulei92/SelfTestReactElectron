@@ -7,13 +7,14 @@ const path = require('path')
 let mainWindow
 
 function createWindow () {
-  require('devtron').install()
+  require('devtron').install() // devtron 插件
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1000,
+    height: 800,
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: true, // js支持 nodejs api
       preload: path.join(__dirname, 'preload.js')
     }
   })
@@ -21,9 +22,22 @@ function createWindow () {
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
-  // Open the DevTools.
+  // Open the DevTools. 打开开发者工具
   mainWindow.webContents.openDevTools()
 
+  // 创建 子窗口
+  let secondWindow = new BrowserWindow({
+    width: 600,
+    height: 400,
+    webPreferences: {
+      nodeIntegration: true
+    },
+    parent: mainWindow
+  })
+
+  secondWindow.loadFile('./second.html')
+  
+  // IPC 进行通信
   ipcMain.on('message', (event, arg) => {
     console.log(event)
     console.log(arg)

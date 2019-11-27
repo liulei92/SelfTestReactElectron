@@ -3,19 +3,19 @@
 // All of the Node.js APIs are available in this process.
 const { ipcRenderer } = require('electron')
 const { BrowserWindow } = require('electron').remote
-
+// 仅当DOM加载完成
 window.addEventListener('DOMContentLoaded', () => {  
-  document.getElementById('node-version').innerHTML = process.versions.node
+  // document.getElementById('node-version').innerHTML = process.versions.node
+
   document.getElementById('send').addEventListener('click', () => {
     ipcRenderer.send('message', 'hello from renderer')
     let win = new BrowserWindow({ width: 600, height: 400 })
-    // win.loadURL('https://baidu.com')
-    win.loadFile('./second.html')
+    win.loadURL('https://baidu.com')
   })
   ipcRenderer.on('reply', (event, arg) => {
     document.getElementById('message').innerHTML = arg
   })
 })
 function tip(){
-	setTimeout(function(){ alert("Hello World!"); }, 3000);
+	// setTimeout(function(){ alert("Hello World!"); }, 3000);
 };
