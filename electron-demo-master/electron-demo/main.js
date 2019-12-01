@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, ipcMain} = require('electron')
+const {app, BrowserWindow, ipcMain, Menu } = require('electron')
 const path = require('path')
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -35,12 +35,16 @@ function createWindow () {
     parent: mainWindow
   })
 
+  //去掉默认菜单栏
+  // Menu.setApplicationMenu(null)
+
   secondWindow.loadFile('./second.html')
   
-  // IPC 进行通信
+  // IPC 进行通信 监听 message ipcMain 主进程
   ipcMain.on('message', (event, arg) => {
     console.log(event)
     console.log(arg)
+    // 现在回复 event上
     event.reply('reply', 'hello from main process')
   })
 

@@ -5,6 +5,7 @@ import DogShow from './components/DogShow'
 import LikeButton from './components/LikeButton'
 import withLoader from './components/withLoader'
 import useURLLoader from './hooks/useURLLoader'
+import MouseTracker from './components/MouseTracker'
 
 const style = {
   width: 200
@@ -37,6 +38,8 @@ function App() {
   
   return (
     <div className="App">
+      <MouseTracker/>
+
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <DogShow/>
